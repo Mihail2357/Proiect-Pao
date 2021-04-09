@@ -4,7 +4,6 @@ import biblioteca.books.Book;
 
 import java.util.ArrayList;
 
-
 public class PremiumUser extends User{
     private int daysOfSubscription;
 

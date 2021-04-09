@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Autor extends Human {
-    String section;
+    private String section;
 
     public Autor(String name, String information, String section) {
         super(name, information);
