@@ -1,0 +1,11 @@
+ Puteti face urmatoarele operatii
+  1.Puteti adauga o carte intr-o sectiune
+  2.Puteti afisa toate cartile din biblioteca
+  3.Puteti afisa toate cartile scrise de un anumit autor
+  4.Puteti verifica cate carti cu un anumit titlu sunt in stoc
+  5.Puteti inchiria o carte
+  6.Puteti crea un user nou 
+  7.Puteti afisa titlul cartii cu cele mai multe exemplare
+  8.Puteti mari numarul de exemplare a unei carti  
+  9.Puteti micsora numarul de exemplare a unei carti
+  10.Puteti sa returnati o carte
