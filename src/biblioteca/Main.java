@@ -103,15 +103,9 @@ public class Main {
             if(number == 5) {
                 System.out.println("Care este numele dumneavoastra??");
                 String name = in.next();
-                System.out.println("Care este emailul dumneavoastra??");
-                String email = in.next();
-                System.out.println("Vreti un abonament gratis(1) sau unul premium?(2)");
-                int type = in.nextInt();
-                if (type == 1)
-                    Services.addUser(users, new LimitedUser(name, email, 1));
-                else
-                    Services.addUser(users, new PremiumUser(name, email, 100));
-
+                System.out.println("Care este titlul cartii pe care vreti sa o inchiriati?");
+                String title = in.next();
+                Services.rentBook(sections, users, name, title);
             }
 
             if(number == 6) {
@@ -125,8 +119,38 @@ public class Main {
                     Services.addUser(users, new LimitedUser(name, email, 1));
                 else
                     Services.addUser(users, new PremiumUser(name, email, 100));
+            }
+
+            if(number == 7) {
+                Services.mostCopies(sections);
+            }
+
+            if(number == 8) {
+                System.out.println("Care este titlul carti la care se adauga exemplare??");
+                String title = in.next();
+                System.out.println("Cate exemplare vreti sa adaugati?");
+                int numberOfCopies = in.nextInt();
+                Services.addCopies(sections, title, numberOfCopies);
 
             }
+
+            if(number == 9) {
+                System.out.println("Care este titlul carti la care se ia din exemplare??");
+                String title = in.next();
+                System.out.println("Cate exemplare vreti sa luati?");
+                int numberOfCopies = in.nextInt();
+                Services.removeCopies(sections, title, numberOfCopies);
+
+            }
+
+            if(number == 10) {
+                System.out.println("Care este numele dumneavoastra??");
+                String name = in.next();
+                System.out.println("Care este titlul cartii pe care vreti sa o returnati?");
+                String title = in.next();
+                Services.returnBook(sections, users, name, title);
+            }
+
 
 
 
