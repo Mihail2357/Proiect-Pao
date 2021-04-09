@@ -30,6 +30,7 @@ public class Main {
         int i;
         Scanner in = new Scanner(System.in);
 
+        Services.display();
         System.out.println("Cate servicii doriti?");
         int nr_services = in.nextInt();
 
