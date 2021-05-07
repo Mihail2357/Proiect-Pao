@@ -30,6 +30,12 @@ public class Main {
         se.add(section1);
         Set<Section> sections = new TreeSet<>(se);
 
+        Singleton.getInstance().createNewFile("AudioBooks.csv");
+        Singleton.getInstance().createNewFile("PaperBooks.csv");
+        Singleton.getInstance().createNewFile("LimitedUser.csv");
+        Singleton.getInstance().createNewFile("PremiumUser.csv");
+        Singleton.getInstance().createNewFile("ActionsWrite.csv");
+
         Services.writeBooksInCSV(sections);
         Services.addBooksFromCSV(section1, Services.readBooks());
         Services.writeUsersInCSV(users);
