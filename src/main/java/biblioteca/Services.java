@@ -96,6 +96,7 @@ public class Services {
 
     public static void addBook(Section section, Book book, int numberOfBooks){
         section.getBooks().put(book, numberOfBooks);
+        writeBookInCSV(book, numberOfBooks);
         actionWrite("addBook");
     }
 
@@ -140,6 +141,7 @@ public class Services {
 
     public static void addUser(ArrayList<User> users, User user) {
         users.add(user);
+        writeUserInCSV(user);
         actionWrite("addUser");
     }
 

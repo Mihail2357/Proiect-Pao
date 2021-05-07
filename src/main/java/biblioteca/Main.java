@@ -16,7 +16,8 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<User> users = new ArrayList<>();
-        LimitedUser user1 = LimitedUser("Ana", "AA@gg.com", 1);
+        LimitedUser user1 = new LimitedUser("Ana", "AA@gg.com", 1);
+        users.add(user1);
         Narator narator1 = new Narator("David", "Narator subiectiv","Engleza");
         Autor autor1 = new Autor("Mihail", "Nobel economie 2009", "Economie");
         Book book1 = new PaperBook("aad", autor1, "Economie", "12.2.2009", "abc", 500);
@@ -29,10 +30,10 @@ public class Main {
         se.add(section1);
         Set<Section> sections = new TreeSet<>(se);
 
-        Services.addBooksFromCSV(section1, Services.readBooks());
         Services.writeBooksInCSV(sections);
-        Services.addUsersFromCSV(users, Services.readUsers());
+        Services.addBooksFromCSV(section1, Services.readBooks());
         Services.writeUsersInCSV(users);
+        Services.addUsersFromCSV(users, Services.readUsers());
 
         int i;
         Scanner in = new Scanner(System.in);

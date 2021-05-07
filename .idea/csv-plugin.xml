@@ -24,7 +24,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\LimitedUser.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\PaperBooks.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\PremiumUser.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
