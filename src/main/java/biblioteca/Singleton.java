@@ -40,6 +40,14 @@ public class Singleton {
         }
     }
 
+    public void createNewFile(String filePath) {
+        try {
+            Writer fileWriter = new FileWriter(filePath, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Book> readBooks(String file)
     {   List<Book> books = new ArrayList<>();
 
@@ -78,7 +86,6 @@ public class Singleton {
             // class with CSV file as a parameter.
             FileReader filereader = new FileReader(file);
 
-            // create csvReader object and skip first Line
             CSVReader csvReader = new CSVReaderBuilder(filereader)
                     .withSkipLines(0)
                     .build();
@@ -105,9 +112,9 @@ public class Singleton {
         // specified by filepath
         File file = new File(filePath);
         try {
-            // create FileWriter object with file as parameter
-            if(!file.exists())
+            if(!file.exists()) {
                 file.createNewFile();
+            }
 
             PrintWriter outputfile = new PrintWriter(new FileWriter(file, true));
             // create CSVWriter object filewriter object as parameter
