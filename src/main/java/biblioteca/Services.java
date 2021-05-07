@@ -1,12 +1,16 @@
 package biblioteca;
 
+import biblioteca.books.AudioBook;
 import biblioteca.books.Book;
+import biblioteca.books.PaperBook;
 import biblioteca.sections.Section;
 import biblioteca.users.LimitedUser;
 import biblioteca.users.PremiumUser;
 import biblioteca.users.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,9 +33,43 @@ public class Services {
         );
     }
 
+    public static List<Book> readBooks() {
+        return Singleton.getInstance().readBooks("Books.csv");
+    }
+
+    public static void addBooksFromCSV(Section s, List<Book> books ){
+        for(Book b : books)
+            addBook(s, b,1);
+    }
+
+    public static void writeBooksInCSV(Set<Section>sections) {
+        for(Section s :sections) {
+            for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
+                writeBookInCSV(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public static void writeBookInCSV(Book book, Integer nr) {
+
+        if (book instanceof AudioBook) {
+            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  Integer.toString(((AudioBook) book).getNumberOfMinutes()), ((AudioBook) book).getNarator().getName() };
+            Singleton.getInstance().writeInCsv("AudioBooks.csv", data);
+        }
+        if (book instanceof PaperBook) {
+            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  ((PaperBook) book).getPublisher(), Integer.toString(((PaperBook) book).getNumberOfPages()) };
+            Singleton.getInstance().writeInCsv("PaperBooks.csv", data);
+        }
+    }
+
+    public static void actionWrite(String name){
+        String [] data = {name, new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date())};
+        Singleton.getInstance().writeInCsv("ActionsWrite.csv", data);
+    }
+
+
     public static void addBook(Section section, Book book, int numberOfBooks){
         section.getBooks().put(book, numberOfBooks);
-
+        actionWrite("addBook");
     }
 
     public static void printBooks(Set<Section> sections) {
@@ -39,6 +77,7 @@ public class Services {
             for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
                 System.out.println(entry.getKey());
         }
+        actionWrite("printBooks");
     }
 
     public static void printAutorBooks(Set<Section> sections, String autorName) {
@@ -47,6 +86,7 @@ public class Services {
                 if (entry.getKey().getAutor().getName().equals(autorName))
                     System.out.println(entry.getKey());
         }
+        actionWrite("printAutorBooks");
     }
     public static void printNumberOfBooks(Set<Section> sections, String title) {
         boolean found=false;
@@ -59,9 +99,11 @@ public class Services {
         }
         if(!found)
             System.out.println(title+" 0");
+        actionWrite("printNumberOfBooks");
     }
 
     public static boolean checkBook(Set<Section> sections, String title) {
+        actionWrite("checkBook");
         for (Section s : sections)
             for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
                 if (entry.getKey().getTitle().equals(title))
@@ -71,6 +113,7 @@ public class Services {
 
     public static void addUser(ArrayList<User> users, User user) {
         users.add(user);
+        actionWrite("addUser");
     }
 
     public static void rentBook(Set<Section> sections, ArrayList<User> users, String name, String title) {
@@ -88,6 +131,7 @@ public class Services {
                             System.out.println("Carte inchiriata");
                         }
             }
+        actionWrite("rentBook");
     }
 
     public static void mostCopies(Set<Section> sections) {
@@ -100,6 +144,7 @@ public class Services {
             for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
                 if(entry.getValue() == numberOfCopies)
                     System.out.println(entry.getKey().getTitle() + " " + entry.getValue());
+        actionWrite("mostCopiesBook");
     }
 
     public static void addCopies(Set<Section> sections, String title, int numberOfCopies) {
@@ -107,6 +152,7 @@ public class Services {
             for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
                 if(entry.getKey().getTitle().equals(title))
                     s.getBooks().replace(entry.getKey(), entry.getValue()+numberOfCopies);
+        actionWrite("addCopies");
     }
 
     public static void removeCopies(Set<Section> sections, String title, int numberOfCopies) {
@@ -114,6 +160,7 @@ public class Services {
             for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
                 if(entry.getKey().getTitle().equals(title))
                     s.getBooks().replace(entry.getKey(), entry.getValue()-numberOfCopies);
+        actionWrite("removeCopies");
     }
 
     public static void returnBook(Set<Section> sections, ArrayList<User> users, String name, String title) {
@@ -129,7 +176,7 @@ public class Services {
                             System.out.println("Cartea a fost returnata");
                         }
             }
-
+        actionWrite("returnBook");
     }
 
 }

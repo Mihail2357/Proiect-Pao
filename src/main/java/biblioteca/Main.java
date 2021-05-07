@@ -16,17 +16,20 @@ public class Main {
 
     public static void main(String[] args) {
         ArrayList<User> users = new ArrayList<>();
+        Narator narator1 = new Narator("David", "Narator subiectiv","Engleza");
         Autor autor1 = new Autor("Mihail", "Nobel economie 2009", "Economie");
         Book book1 = new PaperBook("aad", autor1, "Economie", "12.2.2009", "abc", 500);
-        Book book2 = new PaperBook("aageh", autor1, "Economie", "12.2.2009", "abc", 512);
+        Book book2 = new AudioBook("aageh", autor1, "Economie", "12.2.2009", 1000, narator1);
         Map<Book, Integer> books = new HashMap<Book, Integer>();
         books.put(book1, 4);
         books.put(book2, 6);
-        Section sectiune1 = new Section("Economie", books);
+        Section section1 = new Section("Economie", books);
         List<Section> se = new ArrayList<>();
-        se.add(sectiune1);
+        se.add(section1);
         Set<Section> sections = new TreeSet<>(se);
 
+        Services.addBooksFromCSV(section1, Services.readBooks());
+        Services.writeBooksInCSV(sections);
         int i;
         Scanner in = new Scanner(System.in);
 

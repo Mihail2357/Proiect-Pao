@@ -31,6 +31,6 @@ public class AudioBook extends Book {
 
     public String toString()
     {
-        return getTitle() + " " + getAutor().getName() + " " + getSection() + " " + getReleaseDate()+ " " + getNumberOfMinutes() + "" +getNarator().getName();
+        return getTitle() + " " + getAutor().getName() + " " + getSection() + " " + getReleaseDate()+ " " + getNumberOfMinutes() + " " +getNarator().getName();
     }
 }
