@@ -5,6 +5,9 @@ import biblioteca.autors.Narator;
 import biblioteca.books.AudioBook;
 import biblioteca.books.Book;
 import biblioteca.books.PaperBook;
+import biblioteca.users.LimitedUser;
+import biblioteca.users.PremiumUser;
+import biblioteca.users.User;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
@@ -75,6 +78,36 @@ public class Singleton {
             e.printStackTrace();
         }
         return books;
+    }
+
+    public List<User> readUsers(String file)
+    {   List<User> users = new ArrayList<>();
+
+        try {
+            // Create an object of file reader
+            // class with CSV file as a parameter.
+            FileReader filereader = new FileReader(file);
+
+            // create csvReader object and skip first Line
+            CSVReader csvReader = new CSVReaderBuilder(filereader)
+                    .withSkipLines(0)
+                    .build();
+            List<String[]> allData = csvReader.readAll();
+            for (String[] row : allData){
+                if(row[0].equals("LimitedUser")) {
+                    LimitedUser limitedUser = new LimitedUser(row[1], row[2], Integer.parseInt(row[3]));
+                    users.add(limitedUser);
+                }
+                if(row[0].equals("PremiumUser")) {
+                   PremiumUser premiumUser = new PremiumUser(row[1], row[2], Integer.parseInt(row[3]));
+                    users.add(premiumUser);
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public void writeInCsv(String filePath, String[] data){

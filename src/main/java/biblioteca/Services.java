@@ -52,12 +52,39 @@ public class Services {
     public static void writeBookInCSV(Book book, Integer nr) {
 
         if (book instanceof AudioBook) {
-            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  Integer.toString(((AudioBook) book).getNumberOfMinutes()), ((AudioBook) book).getNarator().getName() };
+            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  Integer.toString(((AudioBook) book).getNumberOfMinutes()), ((AudioBook) book).getNarator().getName(), String.valueOf(nr)};
             Singleton.getInstance().writeInCsv("AudioBooks.csv", data);
         }
         if (book instanceof PaperBook) {
-            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  ((PaperBook) book).getPublisher(), Integer.toString(((PaperBook) book).getNumberOfPages()) };
+            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(),  ((PaperBook) book).getPublisher(), Integer.toString(((PaperBook) book).getNumberOfPages()), String.valueOf(nr)};
             Singleton.getInstance().writeInCsv("PaperBooks.csv", data);
+        }
+    }
+
+    public static List<User> readUsers() {
+        return Singleton.getInstance().readUsers("Users.csv");
+    }
+
+    public static void addUsersFromCSV(ArrayList<User> users, List<User> u ) {
+        for(User user : u)
+            addUser(users, user);
+    }
+
+    public static void writeUsersInCSV(List<User>users) {
+        for(User user : users) {
+                writeUserInCSV(user);
+        }
+    }
+
+    public static void writeUserInCSV(User user) {
+
+        if (user instanceof LimitedUser) {
+            String[] data = {user.getName(), user.getEmail(), String.valueOf(((LimitedUser) user).getNumberOfCredits())};
+            Singleton.getInstance().writeInCsv("LimitedUser.csv", data);
+        }
+        if (user instanceof PremiumUser) {
+            String[] data = {user.getName(), user.getEmail(), String.valueOf(((PremiumUser) user).getDaysOfSubscription())};
+            Singleton.getInstance().writeInCsv("PremiumUser.csv", data);
         }
     }
 
