@@ -19,16 +19,9 @@ import java.util.UUID;
 
 public class Singleton {
     private static Singleton instance;
-    private String id;
 
-    private Singleton(){
-        id = UUID.randomUUID().toString();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private Singleton(){ }
+
     public static Singleton getInstance(){
         if(instance == null){
             synchronized (Singleton.class){
@@ -45,9 +38,6 @@ public class Singleton {
         if(instance == null){
             instance = new Singleton();
         }
-    }
-    public String getId() {
-        return id;
     }
 
     public List<Book> readBooks(String file)
