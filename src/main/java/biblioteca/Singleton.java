@@ -52,11 +52,8 @@ public class Singleton {
     {   List<Book> books = new ArrayList<>();
 
         try {
-            // Create an object of file reader
-            // class with CSV file as a parameter.
             FileReader filereader = new FileReader(file);
 
-            // create csvReader object and skip first Line
             CSVReader csvReader = new CSVReaderBuilder(filereader)
                     .withSkipLines(0)
                     .build();
@@ -82,8 +79,6 @@ public class Singleton {
     {   List<User> users = new ArrayList<>();
 
         try {
-            // Create an object of file reader
-            // class with CSV file as a parameter.
             FileReader filereader = new FileReader(file);
 
             CSVReader csvReader = new CSVReaderBuilder(filereader)
@@ -108,8 +103,6 @@ public class Singleton {
     }
 
     public void writeInCsv(String filePath, String[] data){
-        // first create file object for file placed at location
-        // specified by filepath
         File file = new File(filePath);
         try {
             if(!file.exists()) {
@@ -117,11 +110,8 @@ public class Singleton {
             }
 
             PrintWriter outputfile = new PrintWriter(new FileWriter(file, true));
-            // create CSVWriter object filewriter object as parameter
             CSVWriter writer = new CSVWriter(outputfile);
             writer.writeNext(data);
-
-            // closing writer connection
             writer.close();
         }
         catch (IOException e) {
