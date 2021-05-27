@@ -9,10 +9,7 @@ import biblioteca.users.PremiumUser;
 import biblioteca.users.User;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Services {
     public static void display()
@@ -44,9 +41,12 @@ public class Services {
 
     public static void writeBooksInCSV(Set<Section>sections) {
         for(Section s :sections) {
-            for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet())
+            for (Map.Entry<Book, Integer> entry : s.getBooks().entrySet()) {
                 writeBookInCSV(entry.getKey(), entry.getValue());
+                insertBook(entry.getKey(), entry.getValue(), s.getName());
+            }
         }
+
     }
 
     public static void writeBookInCSV(Book book, Integer nr) {
@@ -94,9 +94,10 @@ public class Services {
     }
 
 
-    public static void addBook(Section section, Book book, int numberOfBooks){
-        section.getBooks().put(book, numberOfBooks);
-        writeBookInCSV(book, numberOfBooks);
+    public static void addBook(Section section, Book book, int quantity){
+        section.getBooks().put(book, quantity);
+        writeBookInCSV(book, quantity);
+        insertBook(book, quantity, section.getName());
         actionWrite("addBook");
     }
 
@@ -206,6 +207,18 @@ public class Services {
                         }
             }
         actionWrite("returnBook");
+    }
+
+    //etapa3
+    public static void insertBook(Book book, int quantity, String section) {
+       if(book instanceof PaperBook) {
+           String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(), ((PaperBook) book).getPublisher(), Integer.toString(((PaperBook) book).getNumberOfPages())};
+           Database.getDatabaseInstance().insertBook(data,"paper_books");
+       }
+        if(book instanceof AudioBook) {
+            String[] data = {book.getTitle(), book.getAutor().getName(), book.getSection(), book.getReleaseDate(), Integer.toString(((AudioBook) book).getNumberOfMinutes()), ((AudioBook) book).getNarator().getName()};
+            Database.getDatabaseInstance().insertBook(data,"audio_books");
+        }
     }
 
 }
